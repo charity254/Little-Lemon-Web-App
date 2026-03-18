@@ -2,6 +2,14 @@
 
 A full-stack web application for Little Lemon, a family-owned Mediterranean restaurant based in Westlands, Nairobi, Kenya. Built with Django.
 
+## Live Demo
+
+🌍 [littlelemon.pythonanywhere.com](https://littlelemon.pythonanywhere.com)
+
+**Admin Dashboard:** [littlelemon.pythonanywhere.com/dashboard/login](https://littlelemon.pythonanywhere.com/dashboard/login)
+- Username: `admin`
+- Password: `12345`
+
 ## Features
 
 - **Home** — Hero section, weekend special banner, feature cards, chef's special, customer reviews and photo gallery
@@ -16,6 +24,7 @@ A full-stack web application for Little Lemon, a family-owned Mediterranean rest
 - **Database** — SQLite
 - **Frontend** — HTML, CSS (custom), vanilla JavaScript
 - **Fonts** — Google Fonts (Markazi Text, Karla)
+- **Hosting** — PythonAnywhere
 
 ## Setup & Installation
 
@@ -27,28 +36,28 @@ A full-stack web application for Little Lemon, a family-owned Mediterranean rest
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/charity254/Little-Lemon-Web-App.git
    cd Little-Lemon-Web-App
    ```
 
 2. **Install dependencies**
    ```bash
-   pip3 install django --user --break-system-packages
+   pip install django gunicorn --user
    ```
 
 3. **Apply migrations**
    ```bash
-   python3 manage.py migrate
+   python manage.py migrate
    ```
 
 4. **Create a superuser** (for admin access)
    ```bash
-   python3 manage.py createsuperuser
+   python manage.py createsuperuser
    ```
 
 5. **Run the development server**
    ```bash
-   python3 manage.py runserver
+   python manage.py runserver
    ```
 
 6. **Open in browser**
@@ -70,6 +79,8 @@ Little-Lemon-Web-App/
 │   ├── urls.py           # URL routing
 │   ├── forms.py          # Django forms
 │   └── admin.py          # Admin configuration
+├── requirements.txt
+├── Procfile
 ├── manage.py
 └── db.sqlite3
 ```
@@ -106,11 +117,26 @@ Staff can:
 
 The default Django admin is also available at `/admin/`.
 
-## Environment Notes
+## Deployment on PythonAnywhere
 
-- `DEBUG = True` — set to `False` in production
-- `SECRET_KEY` — replace with a secure key in production
-- Database — migrate to PostgreSQL for production use
+1. Log in to [pythonanywhere.com](https://pythonanywhere.com)
+2. Open a Bash console and clone the repo:
+   ```bash
+   git clone https://github.com/charity254/Little-Lemon-Web-App.git
+   ```
+3. Install dependencies:
+   ```bash
+   pip install django gunicorn --user
+   ```
+4. Run migrations:
+   ```bash
+   python manage.py migrate
+   ```
+5. Go to **Web** tab → **Add a new web app** → **Manual configuration** → **Python 3.12**
+6. Set the source directory to `/home/<username>/Little-Lemon-Web-App`
+7. Set the WSGI file to point to `littlelemon.wsgi`
+8. Set static files URL to `/restaurant/static/` and directory to `/home/<username>/Little-Lemon-Web-App/restaurant/static`
+9. Reload the web app
 
 ## License
 
