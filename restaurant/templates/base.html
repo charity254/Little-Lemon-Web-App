@@ -1,48 +1,76 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>Little Lemon</title>
-    <meta name="description" content="A brief description" />
-    <meta
-      name="author"
-      content="Based in Chicago, Illinois, Little Lemon is a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist."
-    />
-
-    <!-- Load favicon -->
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="{% static 'img/favicon.ico' %}"
-    />
-
-    <!-- Include your CSS files here -->
-    <link
-      rel="preload"
-      as="style"
-      href="{% static 'css/style.css' %}"
-      onload="this.rel = 'stylesheet'"
-    />
-
+    <meta name="description" content="Family-owned Mediterranean restaurant in Nairobi, Kenya." />
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Karla&family=Markazi+Text:wght@500&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Markazi+Text:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
 
-  <body>
-    <!--Header content-->
-    {% include 'partials/_header.html' %}
+<!-- HEADER -->
+<header>
+    <a href="{% url 'home' %}" class="header-logo">
+      <img src="{% static 'img/logo.png' %}" alt="Little Lemon" />
+      <span style="font-size:0.85rem; color:var(--text-light); margin-left:0.25rem;">Nairobi, Kenya</span>
+  </a>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+            <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a></li>
+            <li><a href="{% url 'menu' %}" class="{% if request.resolver_match.url_name == 'menu' %}active{% endif %}">Menu</a></li>
+            <li><a href="{% url 'book' %}" class="{% if request.resolver_match.url_name == 'book' %}active{% endif %}">Book</a></li>
+            {% if user.is_staff %}
+            <li><a href="{% url 'dashboard' %}" class="nav-admin">&#9711; Admin</a></li>
+            {% endif %}      
+          </ul>
+    </nav>
+</header>
 
-    <main>{% block content %} {% endblock %}</main>
+<main>{% block content %}{% endblock %}</main>
 
-    <!--Footer content-->
-    {% include 'partials/_footer.html' %}
-  </body>
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <img src="{% static 'img/logo_footer.png' %}" alt="Little Lemon" />
+            <div class="footer-brand-name">Little Lemon</div>
+            <p>Family-owned Mediterranean restaurant serving Italian, Greek, and Turkish inspired cuisine in the heart of Nairobi.</p>
+        </div>
+        <div class="footer-contact">
+            <h4>Contact Us</h4>
+            <p>&#128222; +254 712 345 678</p>
+            <p>&#9993; info@littlelemon.co.ke</p>
+            <p>&#128205; Westlands, Nairobi, Kenya</p>
+        </div>
+        <div class="footer-hours">
+            <h4>Opening Hours</h4>
+            <div class="footer-hours-row"><span>Mon - Fri</span><span>2pm - 10pm</span></div>
+            <div class="footer-hours-row"><span>Saturday</span><span>2pm - 11pm</span></div>
+            <div class="footer-hours-row"><span>Sunday</span><span>2pm - 9pm</span></div>
+        </div>
+        <div class="footer-newsletter">
+            <h4>Newsletter</h4>
+            <p style="font-size:0.9rem; opacity:0.8; margin-bottom:0.75rem;">Subscribe to receive updates and special offers</p>
+            <input type="email" placeholder="Your email" />
+            <button class="btn btn-yellow">Subscribe</button>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="social-links">
+            <a href="#">f</a>
+            <a href="#">in</a>
+            <a href="#">tw</a>
+        </div>
+        <p>&copy; 2026 Little Lemon Restaurant, Nairobi Kenya. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
 </html>

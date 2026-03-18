@@ -1,60 +1,65 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
-<section>
-  <article>
-    <h1>About Us</h1>
-    <!--Begin row-->
-    <div class="row">
-      <!--Begin col-->
-      <div class="column">
-        <p>
-          Based in Chicago, Illinois, Little Lemon is a family owned
-          Mediterranean restaurant, focused on traditional recipes served with a
-          modern twist.
-        </p>
-        <p>
-          The chefs draw inspiration from Italian, Greek, and Turkish culture
-          and have a menu of 12-15 items that they rotate seasonally.
-        </p>
+{% extends 'base.html' %}
+{% load static %}
 
-        <p>
-          The restaurant has a rustic and relaxed atmosphere with moderate
-          prices, making it a popular place for a meal any time of the day.
-        </p>
+{% block content %}
 
-        <p>
-          Little Lemon is owned by two Italian brothers, Mario and Adrian, who
-          moved to the United States to pursue their shared dream of owning a
-          restaurant.
-        </p>
+<!-- PAGE BANNER -->
+<div class="page-banner">
+    <h1>Our Story</h1>
+    <p>A tale of two brothers, a passion for Mediterranean cuisine, and a dream brought to life in Nairobi</p>
+</div>
 
-        <p>
-          To craft the menu, Mario relies on family recipes and his experience
-          as a chef in Italy.
+<!-- OUR STORY -->
+<div class="about-story">
+    <div>
+        <h2>From Italy to Nairobi</h2>
+        <br/>
+        <p style="color:var(--text-medium); margin-bottom:1rem;">
+            Little Lemon was founded in 2015 by brothers Mario and Adrian Rossi, who grew up in a small coastal town in southern Italy. From a young age, they spent their evenings watching their grandmother fill the kitchen with the aromas of fresh basil, slow-cooked tomatoes, and grilled fish straight from the Mediterranean Sea. Those memories never left them.
         </p>
-
-        <p>
-          Adrian does all the marketing for the restaurant and led the effort to
-          expand the menu beyond classic Italian to incorporate additional
-          cuisines from the mediterranean region.
+        <p style="color:var(--text-medium); margin-bottom:1rem;">
+            Mario went on to train as a professional chef in Rome and Florence, mastering the art of Italian and broader Mediterranean cooking. Adrian, the business mind of the two, studied hospitality management and developed a deep passion for creating dining experiences that felt warm, personal, and memorable. Together, they were a perfect team.
         </p>
-      </div>
-      <!--End col-->
-
-      <!--Begin col-->
-      <div class="column">
-        <figure class="figure">
-          <img
-            src="{% static 'img/mario-and-adrian.jpg' %}"
-            alt="Mario and Adrian"
-          />
-          <figcaption class="figure-caption">
-            Little Lemon owners Mario and Adrian.
-          </figcaption>
-        </figure>
-      </div>
-      <!--End col-->
+        <p style="color:var(--text-medium); margin-bottom:1rem;">
+            After years of working in restaurants across Europe, the brothers felt a pull toward something bigger — a place where their food could truly stand out. A chance trip to Nairobi in 2013 changed everything. They were struck by the city's energy, its growing appetite for world-class cuisine, and the warmth of its people. They knew instantly — this was where Little Lemon belonged.
+        </p>
+        <p style="color:var(--text-medium); margin-bottom:1rem;">
+            In 2015, they opened their doors in the vibrant Westlands neighborhood of Nairobi. The response was overwhelming. Nairobi embraced Little Lemon not just as a restaurant, but as an experience — a little corner of the Mediterranean in the heart of East Africa.
+        </p>
+        <p style="color:var(--text-medium);">
+            Today, Little Lemon remains true to its roots. Every dish that leaves our kitchen carries the same passion and attention to detail that their grandmother instilled in them. We source locally from Kenyan farms whenever possible, import specialty ingredients directly from the Mediterranean, and prepare everything fresh every single day. No shortcuts. Just love on a plate.
+        </p>
     </div>
-    <!--End row-->
-  </article>
-</section>
+    <div class="about-story-img-wrap">
+        <img src="{% static 'img/mario-and-adrian.jpg' %}" alt="Mario and Adrian" class="about-story-img" />
+        <div class="mission-quote">
+            <p>"Our mission is simple: bring the authentic taste of the Mediterranean to Nairobi, one plate at a time."</p>
+            <span>— Mario &amp; Adrian Rossi</span>
+        </div>
+    </div>
+</div>
+
+<!-- OUR VALUES -->
+<div class="section section-gray">
+    <h2 class="section-title">Our Values</h2>
+    <p class="section-subtitle">What makes Little Lemon special</p>
+    <div class="values-grid">
+        <div class="value-card">
+            <div class="value-icon">&#128106;</div>
+            <h3>Family-Owned</h3>
+            <p>A true family business where every guest is treated like part of our extended family. From the moment you walk in, you are home.</p>
+        </div>
+        <div class="value-card">
+            <div class="value-icon">&#10084;</div>
+            <h3>Made with Love</h3>
+            <p>Every dish is prepared with care and intention, using traditional recipes passed down through generations of the Rossi family.</p>
+        </div>
+        <div class="value-card">
+            <div class="value-icon">&#127819;</div>
+            <h3>Quality Ingredients</h3>
+            <p>We source the finest local Kenyan produce and imported Mediterranean ingredients to ensure every bite is authentic and delicious.</p>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

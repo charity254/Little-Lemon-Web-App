@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-banner" style="text-align:left;">
+    <h1>{{ title }}</h1>
+    <p>Fill in the details below and click save</p>
+</div>
+
+<div style="padding:3rem 5%; max-width:700px;">
+    <div class="book-form-card">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Name *</label>
+                <input type="text" name="name" value="{{ form.name.value|default:'' }}" required />
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select name="category">
+                        <option value="Starters" {% if form.category.value == 'Starters' %}selected{% endif %}>Starters</option>
+                        <option value="Mains" {% if form.category.value == 'Mains' %}selected{% endif %}>Mains</option>
+                        <option value="Desserts" {% if form.category.value == 'Desserts' %}selected{% endif %}>Desserts</option>
+                        <option value="Drinks" {% if form.category.value == 'Drinks' %}selected{% endif %}>Drinks</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price (KSh) *</label>
+                    <input type="number" name="price" value="{{ form.price.value|default:'' }}" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="menu_item_description">{{ form.menu_item_description.value|default:'' }}</textarea>
+            </div>
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" name="image" value="{{ form.image.value|default:'' }}" placeholder="https://..." />
+            </div>
+            <div class="form-group" style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" name="featured" id="featured" style="width:auto;" {% if form.featured.value %}checked{% endif %} />
+                <label for="featured" style="margin:0; font-weight:500;">Mark as Featured dish</label>
+            </div>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button type="submit" class="form-submit">Save Menu Item</button>
+                <a href="{% url 'dashboard' %}" class="btn btn-yellow" style="flex:1; justify-content:center;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- DASHBOARD HEADER -->
+<div class="page-banner" style="text-align:left; display:flex; justify-content:space-between; align-items:center;">
+    <div>
+        <h1>Admin Panel</h1>
+        <p>Manage menu items and reservations</p>
+    </div>
+    <a href="{% url 'dashboard_logout' %}" class="btn btn-yellow">&#8594; Logout</a>
+</div>
+
+<!-- TABS -->
+<div style="padding:0 5%; background:white; border-bottom:1px solid var(--border);">
+    <div style="display:flex; gap:2rem;">
+        <button class="tab-btn active" onclick="switchTab('reservations', this)" style="padding:1rem 0; border:none; background:none; font-family:'Karla',sans-serif; font-size:1rem; font-weight:600; cursor:pointer; border-bottom:2px solid var(--text-dark); color:var(--text-dark);">
+            &#128197; Reservations ({{ bookings.count }})
+        </button>
+        <button class="tab-btn" onclick="switchTab('menuitems', this)" style="padding:1rem 0; border:none; background:none; font-family:'Karla',sans-serif; font-size:1rem; font-weight:500; cursor:pointer; border-bottom:2px solid transparent; color:var(--text-light);">
+            &#9959; Menu Items ({{ menu_items.count }})
+        </button>
+    </div>
+</div>
+
+<!-- RESERVATIONS TAB -->
+<div id="tab-reservations" class="tab-content" style="padding:2rem 5%;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <h2 style="font-size:1.8rem;">Upcoming Reservations</h2>
+    <div style="display:flex; align-items:center; gap:1rem;">
+        <span style="color:var(--text-light); font-size:0.9rem;">Total: {{ bookings.count }} reservations</span>
+        <a href="{% url 'add_booking' %}" class="btn btn-green">+ Add Reservation</a>
+    </div>
+    </div>
+
+    <div style="background:white; border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;">
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr style="background:var(--off-white);">
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Guest Name</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Date</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Time</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Guests</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Special Requests</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr style="border-top:1px solid var(--border);">
+                    <td style="padding:1rem 1.5rem; font-weight:500;">{{ booking.first_name }} {{ booking.last_name }}</td>
+                    <td style="padding:1rem 1.5rem; color:var(--text-medium);">{{ booking.date }}</td>
+                    <td style="padding:1rem 1.5rem; color:var(--text-medium);">{{ booking.time }}</td>
+                    <td style="padding:1rem 1.5rem; color:var(--text-medium);">&#128101; {{ booking.guest_number }}</td>
+                    <td style="padding:1rem 1.5rem; color:var(--text-light); font-size:0.9rem;">
+                        {% if booking.special_requests %}
+                            {{ booking.special_requests }}
+                        {% else %}
+                            No special requests
+                        {% endif %}
+                    </td>
+                    <td style="padding:1rem 1.5rem;">
+                        <form method="post" action="{% url 'delete_booking' booking.pk %}" onsubmit="return confirm('Delete this booking?')">
+                            {% csrf_token %}
+                            <button type="submit" style="background:none; border:none; cursor:pointer; color:#dc3545; font-size:1.1rem;">&#128465;</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="padding:3rem; text-align:center; color:var(--text-light);">No reservations yet</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MENU ITEMS TAB -->
+<div id="tab-menuitems" class="tab-content" style="padding:2rem 5%; display:none;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <h2 style="font-size:1.8rem;">Menu Items</h2>
+        <a href="{% url 'add_menu_item' %}" class="btn btn-green">+ Add Item</a>
+    </div>
+
+    <div style="background:white; border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;">
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr style="background:var(--off-white);">
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Name</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Category</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Price</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Featured</th>
+                    <th style="padding:1rem 1.5rem; text-align:left; font-size:0.9rem; color:var(--text-medium); font-weight:600;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in menu_items %}
+                <tr style="border-top:1px solid var(--border);">
+                    <td style="padding:1rem 1.5rem; font-weight:500;">{{ item.name }}</td>
+                    <td style="padding:1rem 1.5rem; color:var(--text-light); font-size:0.9rem;">{{ item.category }}</td>
+                    <td style="padding:1rem 1.5rem; color:var(--text-medium);">KSh {{ item.price|floatformat:0 }}</td>
+                    <td style="padding:1rem 1.5rem;">
+                        {% if item.featured %}
+                            <span style="background:var(--yellow); color:var(--text-dark); padding:0.2rem 0.75rem; border-radius:50px; font-size:0.8rem; font-weight:600;">&#10022; Featured</span>
+                        {% else %}
+                            <span style="color:var(--text-light); font-size:0.9rem;">—</span>
+                        {% endif %}
+                    </td>
+                    <td style="padding:1rem 1.5rem; display:flex; gap:1rem; align-items:center;">
+                        <a href="{% url 'edit_menu_item' item.pk %}" style="color:var(--green); font-size:1.1rem;">&#9998;</a>
+                        <form method="post" action="{% url 'delete_menu_item' item.pk %}" onsubmit="return confirm('Delete this menu item?')">
+                            {% csrf_token %}
+                            <button type="submit" style="background:none; border:none; cursor:pointer; color:#dc3545; font-size:1.1rem;">&#128465;</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="padding:3rem; text-align:center; color:var(--text-light);">No menu items yet</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+    document.querySelectorAll('.tab-btn').forEach(b => {
+        b.style.borderBottom = '2px solid transparent';
+        b.style.color = 'var(--text-light)';
+        b.style.fontWeight = '500';
+    });
+    document.getElementById('tab-' + tab).style.display = 'block';
+    btn.style.borderBottom = '2px solid var(--text-dark)';
+    btn.style.color = 'var(--text-dark)';
+    btn.style.fontWeight = '600';
+}
+</script>
+
+{% endblock %}

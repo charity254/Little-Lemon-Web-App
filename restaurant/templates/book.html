@@ -2,37 +2,87 @@
 {% load static %}
 
 {% block content %}
-<section>
-  <article>
-    <h1>Make a reservation</h1>
-    <!--Begin row-->
-    <div class="row">
-      <!--Begin col-->
-      <div class="column">
-        <form action="" method="post">
-          {% csrf_token %}
-          {{form.as_p}}
-          <input type="submit" id="button">
-        </form>
-      </div>
-      <!--End col-->
 
-      <!--Begin col-->
-      <div class="column">
-        <div class="videowrap">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11898.289517452584!2d-87.60853049433447!3d41.79442860243028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2912ce6f7027%3A0xc0cfb5545d4a37b2!2sHyde%20Park%2C%20Chicago%2C%20IL%2C%20USA!5e0!3m2!1sen!2spt!4v1662384760663!5m2!1sen!2spt"
-            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+<!-- PAGE BANNER -->
+<div class="page-banner">
+    <h1>Reserve Your Table</h1>
+    <p>Book your dining experience at Little Lemon and enjoy authentic Mediterranean cuisine in the heart of Nairobi</p>
+</div>
+
+<!-- BOOKING GRID -->
+<div class="book-grid">
+
+    <!-- FORM SIDE -->
+    <div class="book-form-card">
+        <h2>Reservation Details</h2>
+
+        {% if success %}
+        <div class="success-message">
+            &#10003; Your reservation has been confirmed! We look forward to seeing you.
         </div>
-      </div>
-      <!--End col-->
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label>First Name *</label>
+                    <input type="text" name="first_name" placeholder="John" required value="{{ form.first_name.value|default:'' }}" />
+                </div>
+                <div class="form-group">
+                    <label>Last Name *</label>
+                    <input type="text" name="last_name" placeholder="Doe" required value="{{ form.last_name.value|default:'' }}" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Date *</label>
+                    <input type="date" name="date" required value="{{ form.date.value|default:'' }}" />
+                </div>
+                <div class="form-group">
+                    <label>Time *</label>
+                    <input type="time" name="time" required value="{{ form.time.value|default:'' }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Number of Guests *</label>
+                <input type="number" name="guest_number" min="1" max="20" placeholder="2" required value="{{ form.guest_number.value|default:'' }}" />
+            </div>
+            <div class="form-group">
+                <label>Special Requests (Optional)</label>
+                <textarea name="special_requests" placeholder="Dietary restrictions, allergies, special occasions, etc.">{{ form.special_requests.value|default:'' }}</textarea>
+            </div>
+            <button type="submit" class="form-submit">Confirm Reservation</button>
+            <p style="text-align:center; font-size:0.85rem; color:var(--text-light); margin-top:0.75rem;">* Required fields</p>
+        </form>
     </div>
-    <!--End row-->
 
+    <!-- INFO SIDE -->
+    <div>
+        <div class="book-info-card">
+            <iframe
+                class="book-map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8173306707!2d36.7794!3d-1.2676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1a6bf7445dc1%3A0x940b62a594b6b0f3!2sWestlands%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1234567890"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+            <div class="book-address">
+                &#128205; <strong>Westlands, Nairobi, Kenya</strong>
+            </div>
+        </div>
 
+        <div class="important-info">
+            <h3>Important Information</h3>
+            <ul>
+                <li>Please arrive 10 minutes before your reservation time</li>
+                <li>Reservations are held for 15 minutes past the booking time</li>
+                <li>For parties of 8 or more, please call us directly at +254 712 345 678</li>
+                <li>Smart casual dress code preferred</li>
+                <li>Children are welcome — please let us know if you need a high chair</li>
+            </ul>
+        </div>
+    </div>
 
+</div>
 
-  </article>
-</section>
 {% endblock %}

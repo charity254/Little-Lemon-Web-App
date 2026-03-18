@@ -6,4 +6,8 @@ from .models import Booking
 class BookingForm(ModelForm):
     class Meta:
         model = Booking
-        fields = "__all__"
+        fields = ['first_name', 'last_name', 'date', 'time', 'guest_number', 'special_requests']
+        widgets = {
+            'date': __import__('django').forms.DateInput(attrs={'type':'date'}),
+            'time':__import__('django').forms.TimeInput(attrs={'type':'time'}),
+        }

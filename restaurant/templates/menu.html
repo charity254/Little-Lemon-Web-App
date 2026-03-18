@@ -1,23 +1,66 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
-<h1>Menu</h1>
-<!--Begin col-->
-<div class="column">
-    <!-- Step 14: Create for loop -->
-    {% for item in menu.menu%}
-    <p>
-        <!-- Step 14: Add DTL variable for name -->
-        <a href="{% url 'menu_item' pk=item.pk %}">
-        {{item.name}}
-        </a>
-        <span class="menu-price">
-            <!-- Step 14: Add DTL variable for price -->
-            ${{item.price}}.00
-        </span>
-    </p>
-    {%endfor%}
-    <!-- Step 14: End or loop -->
+
+<!-- PAGE BANNER -->
+<div class="page-banner">
+    <h1>Our Menu</h1>
+    <p>Authentic Mediterranean cuisine crafted with the finest ingredients. Our seasonal menu features Italian, Greek, and Turkish inspired dishes.</p>
 </div>
-<!--End col-->
+
+<!-- CATEGORY FILTERS -->
+<div class="category-filters">
+    <button class="filter-btn active" onclick="filterMenu('all', this)">All</button>
+    <button class="filter-btn" onclick="filterMenu('Starters', this)">Starters</button>
+    <button class="filter-btn" onclick="filterMenu('Mains', this)">Mains</button>
+    <button class="filter-btn" onclick="filterMenu('Desserts', this)">Desserts</button>
+    <button class="filter-btn" onclick="filterMenu('Drinks', this)">Drinks</button>
+</div>
+
+<!-- MENU GRID -->
+<div class="menu-grid">
+    {% for item in menu %}
+    <a href="{% url 'menu_item' pk=item.pk %}" class="menu-card" data-category="{{ item.category }}">
+        <div class="menu-card-img-wrap">
+            {% if item.image %}
+                <img src="{{ item.image }}" alt="{{ item.name }}" class="menu-card-img" />
+            {% else %}
+                <div class="menu-card-img-placeholder">🍽</div>
+            {% endif %}
+            {% if item.featured %}
+                <span class="featured-badge">&#10022; Featured</span>
+            {% endif %}
+        </div>
+        <div class="menu-card-body">
+            <div class="menu-card-header">
+                <span class="menu-card-name">{{ item.name }}</span>
+                <span class="menu-card-price">KSh {{ item.price|floatformat:0 }}</span>
+            </div>
+            <div class="menu-card-category">{{ item.category }}</div>
+            <p class="menu-card-desc">{{ item.menu_item_description }}</p>
+        </div>
+    </a>
+    {% empty %}
+    <p style="grid-column: 1/-1; text-align:center; color:var(--text-light); padding: 3rem 0;">
+        No menu items available yet. Check back soon!
+    </p>
+    {% endfor %}
+</div>
+
+<script>
+function filterMenu(category, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.menu-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+
 {% endblock %}

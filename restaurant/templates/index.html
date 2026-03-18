@@ -2,47 +2,102 @@
 {% load static %}
 
 {% block content %}
-<section>
-    <article id="hero">
-      <h1 class="heading_shadow">SPECIAL OFFER</h1>
-      <p>
-        30% Off This Weekend 
-      </p>
-      <a href="#" class="cta"> Book now </a>
-    </article>
-  </section>
-  <section>
-    <article>
-      <h2>Our New Menu</h2>
-      <img src="{% static 'img/grill.jpg' %}">
-      <p>
-        Our menu consists of 12-15 seasonal items based on Italian, Greek, and Turkish culture.
-      </p>
-      <p>
-        <a href="{% url 'menu' %}">See our new menu</a>
-      </p>
-    </article>
-    <article>
-      <h2>Book a table</h2>
-      <img src="{% static 'img/salad.jpg' %}">
-      <p>
-        Reserve your table for an Italian, Greek, and Turkish dining experience.
-      </p>
-      <p>
-        <a href="{% url 'book' %}">Book your table now</a>
-      </p>
-    </article>
-    <article>
-      <h2>Opening Hours</h2>
-      <img src="{% static 'img/head_chef.jpg' %}">
-      <p>
-        The Little Lemon Restaurant is open 7 days a week, except for public holidays. 
-      </p>
-      <ul>
-        <li>Mon - Fri: 2pm - 10pm</li>
-        <li>Sat: 2pm - 11pm</li>
-        <li>Sun: 2pm - 9pm</li>
-      </ul>
-    </article>
-  </section>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Experience Authentic Mediterranean Cuisine</h1>
+        <p>Family-owned restaurant serving the finest Italian, Greek, and Turkish inspired dishes in the heart of Nairobi</p>
+        <a href="{% url 'book' %}" class="btn btn-yellow">Book a Table &#8250;</a>
+    </div>
+</section>
+
+<!-- SPECIAL OFFER BANNER -->
+<div class="offer-banner">
+    &#10022; <strong>Weekend Special:</strong> 20% off all main courses Saturday &amp; Sunday 2pm-6pm &#10022;
+</div>
+
+<!-- FEATURE CARDS -->
+<div class="section">
+    <div class="cards-grid">
+        <div class="card">
+            <img src="{% static 'img/Grill.jpg' %}" alt="Our Menu" class="card-img" />
+            <div class="card-body">
+                <h3>&#10006; Our New Menu</h3>
+                <p>Discover our seasonal menu featuring 12-15 rotating items crafted with the freshest ingredients</p>
+                <a href="{% url 'menu' %}" class="card-link">View Menu &#8250;</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/salad.jpg' %}" alt="Book a Table" class="card-img" />
+            <div class="card-body">
+                <h3>&#128197; Book a Table</h3>
+                <p>Reserve your table today and enjoy an unforgettable dining experience with your loved ones</p>
+                <a href="{% url 'book' %}" class="card-link">Make Reservation &#8250;</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img-placeholder">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#F4CE14" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="card-body">
+                <h3>&#128336; Opening Hours</h3>
+                <ul class="opening-hours-list">
+                    <li><span>Monday - Friday</span><span>2pm - 10pm</span></li>
+                    <li><span>Saturday</span><span>2pm - 11pm</span></li>
+                    <li><span>Sunday</span><span>2pm - 9pm</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CHEF'S SPECIAL -->
+<div class="section" style="padding-top:0;">
+    <div class="chefs-special">
+        <div class="chefs-special-content">
+            <span class="chefs-special-badge">&#10022; Chef's Special This Week</span>
+            <h2>Grilled Mediterranean Sea Bass</h2>
+            <p>Fresh catch grilled to perfection with lemon, herbs, olive oil and served with roasted vegetables and saffron rice.</p>
+            <div class="chefs-special-price">KSh 2,499</div>
+            <a href="{% url 'menu' %}" class="btn btn-yellow" style="width:fit-content;">View Details &#8250;</a>
+        </div>
+        <img src="{% static 'img/head_chef.jpg' %}" alt="Chef's Special" class="chefs-special-img" />
+    </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section section-gray">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <p class="section-subtitle">Don't just take our word for it — hear from our happy diners</p>
+    <div class="reviews-grid">
+        <div class="review-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"Amazing food and wonderful atmosphere! The Mediterranean flavors are authentic and delicious. Highly recommend the Greek Salad!"</p>
+            <div class="review-author">— Sarah Johnson</div>
+        </div>
+        <div class="review-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"Best Mediterranean restaurant in Nairobi! The pasta is homemade and the service is impeccable. Will definitely be coming back."</p>
+            <div class="review-author">— Michael Chen</div>
+        </div>
+        <div class="review-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"A hidden gem in Westlands! The lemon dessert is to die for, and the grilled fish was cooked perfectly. Family-owned and you can feel the love in every dish."</p>
+            <div class="review-author">— Emily Rodriguez</div>
+        </div>
+    </div>
+</div>
+
+<!-- GALLERY -->
+  <div class="gallery-grid">
+    <img src="{% static 'img/Grill.jpg' %}" alt="Grilled Food" />
+    <img src="{% static 'img/salad.jpg' %}" alt="Salad" />
+    <img src="{% static 'img/restaurant_inside.jpg' %}" alt="Restaurant" />
+    <img src="{% static 'img/head_chef.jpg' %}" alt="Chef" />
+    <img src="{% static 'img/pasta.jpg' %}" alt="Pasta" />
+    <img src="{% static 'img/restaurant food.jpg' %}" alt="Restaurant Food" />
+  </div>
+</div>
+
 {% endblock %}
